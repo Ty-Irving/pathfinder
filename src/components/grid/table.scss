@@ -1,0 +1,32 @@
+tr,td 
+{
+    width: 25px;
+    height: 25px;
+    border: 1px black solid;
+   
+}
+
+table 
+{
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.visited
+{
+    background-color: blue;
+}
+
+.start 
+{
+    background-color: green;
+}
+
+.end
+{
+    background-color: red;
+}
