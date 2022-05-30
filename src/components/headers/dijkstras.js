@@ -6,6 +6,18 @@
  * 
  */
 
+
+export function search()
+{
+   // let table = document.getElementById("pathfinder-table");
+
+}
+
+
+
+
+/*
+
 export function search()
 {
     let node = document.getElementsByClassName("start");
@@ -34,9 +46,9 @@ async function newsearch(location)
         {
             element.classList.remove('unvisited');
             element.classList.add('visited');
-            setTimeout(() => {
+           
                 newsearch(neighbor);
-            }, 100);
+         
             
         }
     }
@@ -55,10 +67,10 @@ async function newsearch(location)
         {
             element.classList.remove('unvisited');
             element.classList.add('visited');
-            setTimeout(() => {
+            
                 newsearch(neighbor);
                 console.log(neighbor);
-            }, 100);
+          
         }
         console.log("here a4")
        
@@ -77,9 +89,9 @@ async function newsearch(location)
         {
             element.classList.remove('unvisited');
             element.classList.add('visited');
-            setTimeout(() => {
+            
                 newsearch(neighbor);
-            }, 100);
+        
         }
     }
 
@@ -97,11 +109,12 @@ async function newsearch(location)
         {
             element.classList.remove('unvisited');
             element.classList.add('visited');
-            setTimeout(() => {
+            
                 newsearch(neighbor);
-            }, 100);
+           
         }
         
     }
 
 }
+*/

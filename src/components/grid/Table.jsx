@@ -6,8 +6,20 @@ export default class Table extends Component {
 
     componentDidMount()
     {
+        
+        if(document.getElementById("0-0") != null)
+        {
+            return
+        }
+
+        let clientWidth = document.documentElement.clientWidth;
+        let clientHeight = document.documentElement.clientHeight;
+
+        let cellsWidth = Math.floor((clientWidth)/25);
+        let cellsHeight = Math.floor((clientHeight - 275)/ 25);
+        console.log(cellsWidth, cellsHeight);
         const table = document.getElementById('pathfinder-table');
-        for (let row = 0; row < 16; row++)
+        for (let row = 0; row < cellsHeight; row++)
         {
             let row_name = "row-" + row;
             let new_row = document.createElement('tr');
@@ -15,7 +27,7 @@ export default class Table extends Component {
            
             table.appendChild(new_row);
             
-            for (let col = 0; col < 31; col++) 
+            for (let col = 0; col < cellsWidth; col++) 
             {
                 let col_name = row + "-" + col;
                 let new_col = document.createElement("td");
@@ -26,13 +38,10 @@ export default class Table extends Component {
                 
             }
         }
-        document.getElementById('8-5').bgColor = 'green';
-        document.getElementById('8-23').bgColor = 'red';
         document.getElementById('8-5').classList.remove("unvisited")
         document.getElementById('8-23').classList.remove("unvisited")
         document.getElementById('8-5').classList.add("start")
         document.getElementById('8-23').classList.add("end")
-
      
     }
     render(){
