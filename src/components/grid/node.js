@@ -4,7 +4,7 @@ function Node(x, y)
     this.y = y;
     this.start = false;
     this.end = false;
-    this.distance = null;
+    this.distance = Infinity;
     this.wall = false;
     this.previous = null;
 }
