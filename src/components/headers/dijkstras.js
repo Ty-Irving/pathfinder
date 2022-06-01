@@ -9,7 +9,8 @@
 
 export function search()
 {
-   // let table = document.getElementById("pathfinder-table");
+    //let table = document.getElementById("pathfinder-table");
+    //let gridMatrix = [];
 
 }
 
