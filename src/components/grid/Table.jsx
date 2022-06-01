@@ -38,10 +38,10 @@ export default class Table extends Component {
                 
             }
         }
-        document.getElementById('8-5').classList.remove("unvisited")
-        document.getElementById('8-23').classList.remove("unvisited")
-        document.getElementById('8-5').classList.add("start")
-        document.getElementById('8-23').classList.add("end")
+        document.getElementById('11-14').classList.remove("unvisited")
+        document.getElementById('11-40').classList.remove("unvisited")
+        document.getElementById('11-14').classList.add("start")
+        document.getElementById('11-40').classList.add("end")
      
     }
     render(){
