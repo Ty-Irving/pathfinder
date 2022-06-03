@@ -1,6 +1,8 @@
 export function dijkstras()
 {
 	let Array = findNodes();
+    sortQueue(Array);
+    
 	//let checkFinish = false;
 	console.log(Array);
 	/*while(checkFinish === false)
@@ -23,12 +25,14 @@ export function dijkstras()
 
 //Sorts queue, might be easier to do this some other way
 //Sorts by distance from the start.
-/*
+
 function sortQueue(queueList)
 {
-
+    queueList.sort((a, b) => {
+        return a.distance - b.distance;
+    });
 }
-*/
+
 
 function Node(x, y)
 {
@@ -40,6 +44,7 @@ function Node(x, y)
     this.wall = false;
     this.previous = null;
 }
+
 
 //Adds all nodes on the table created as objects to an array
 function findNodes()
@@ -62,9 +67,14 @@ function findNodes()
             element = document.getElementById(id);
         }
 
+
         if(element != null)
         {
             node = new Node(x,y);
+            if(x === 5)
+            {
+                node.distance = 5;
+            }
             gridNodes.push(node)
         }
         y += 1;
