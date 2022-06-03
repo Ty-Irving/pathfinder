@@ -1,27 +1,95 @@
 export function dijkstras()
 {
-	let Array = findNodes();
-    sortQueue(Array);
+	let nodeArray = findNodes();
+    let queueList = [];
+    let startNode = document.getElementsByClassName('start');
+    let endNode = document.getElementsByClassName('end')
+    let borderX = nodeArray[nodeArray.length - 1].x;
+    let borderY = nodeArray[nodeArray.length - 1].y;
+    let element;
+    let obj;
+    let x = 5, y = 5;
+    sortQueue(nodeArray);
     
-	//let checkFinish = false;
-	console.log(Array);
-	/*while(checkFinish === false)
-	{
+	let checkFinish = false;
+	console.log(nodeArray);
+
+	//while(checkFinish === false)
+	//{
 		//No outer Nodes have been checked
-		if(document.getElementByClass("visited") === null)
+       
+		if(document.getElementsByClassName("visited").length === 0)
 		{	
-			
+			let idStart = startNode[0].id;
+            let idEnd = endNode[0].id;
+        
+            let wordSplit = idEnd.split('-')
+            element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
+            element.end = true;
+
+            wordSplit = idStart.split('-');
+            element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
+            element.start = true;
+
+            x = element.x;
+            y = element.y;
+            
+            if(x - 1 >= 0)
+            {
+                obj = searchArray(x-1, y, nodeArray);
+                obj.distance = 1;
+                element = document.getElementById(obj.x + '-' + obj.y)
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+                
+            }
+
+            if(y - 1 >= 0)
+            {
+                obj = searchArray(x, y - 1, nodeArray);
+                obj.distance = 1;
+                element = document.getElementById(obj.x + '-' + obj.y);
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }
+
+            if(x + 1 <= borderX)
+            {
+                obj = searchArray(x + 1, y, nodeArray);
+                obj.distance = 1;
+                element = document.getElementById(obj.x+ '-' + obj.y)
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }
+
+            if(y + 1 <= borderY)
+            {
+                obj = searchArray(x, y + 1, nodeArray);
+                obj.distance = 1;
+                element = document.getElementById(obj.x + '-' + obj.y)
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }     
 		}
-		
 		//Atleast 1 outnode from start has been checked
 		else
 		{	
-			
+			sortQueue(nodeArray);
 		}
-	}	
-    */
+	//}	
+    
+ //let obj = searchArray(0, 0, nodeArray);
 }
 
+function searchArray(a, b, arrayList)
+{
+    let obj = arrayList.find(o => o.x === a && o.y === b)
+    return obj;
+}
 
 //Sorts queue, might be easier to do this some other way
 //Sorts by distance from the start.
@@ -71,14 +139,11 @@ function findNodes()
         if(element != null)
         {
             node = new Node(x,y);
-            if(x === 5)
-            {
-                node.distance = 5;
-            }
             gridNodes.push(node)
         }
         y += 1;
     }
+
     return gridNodes;
 }
 
