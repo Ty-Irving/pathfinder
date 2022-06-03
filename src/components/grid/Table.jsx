@@ -34,7 +34,7 @@ export default class Table extends Component {
                 new_col.setAttribute("id", col_name);
                 new_col.setAttribute("class", "unvisited")
                 new_row.appendChild(new_col)
-
+                
                 
             }
         }
