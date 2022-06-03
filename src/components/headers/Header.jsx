@@ -1,12 +1,12 @@
 import "./header.scss"
-import {search} from './dijkstras'
+import {dijkstras} from './dijkstras'
 
-export default function header() {
+export default function Header() {
   return (
     <div className = "top-page">
         <div className = "content">
             <a href = "ty-irving.com">Pathfinder</a>
-            <button onClick = {search}>Execute</button>
+            <button onClick = {dijkstras}>Execute</button>
         </div>
         
     </div>

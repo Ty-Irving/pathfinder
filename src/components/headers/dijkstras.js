@@ -1,31 +1,9 @@
-/**
- * #TODO: 
- *  - Go up down left right
- *  - Record distance from start
- * 
- * 
- */
-//Adds all nodes on the table created as objects to an array
-
-function findNodes()
-{
-
-}
-
-/**
- * Check start node then from the start node we will check all around it add to prio list based on what we go to first and distance
- * add their new distance to their values and then go to try and visit neighbors set their distance to whatever it is once we are in
- * the else statement we can start going by the queue and just keep checking the first node in the prio list check their neighbors and
- * add them to the prio list resort and continue always check to see if any of the neighbors are the end if they are exit loop and 
- * display the visited nodes
- */
-
-function Dijkstras()
+export function dijkstras()
 {
 	let Array = findNodes();
-	let checkFinish = false;
-	let queueList = [];
-	while(checkFinish === false)
+	//let checkFinish = false;
+	console.log(Array);
+	/*while(checkFinish === false)
 	{
 		//No outer Nodes have been checked
 		if(document.getElementByClass("visited") === null)
@@ -39,14 +17,59 @@ function Dijkstras()
 			
 		}
 	}	
+    */
 }
 
 
 //Sorts queue, might be easier to do this some other way
 //Sorts by distance from the start.
+/*
 function sortQueue(queueList)
 {
 
+}
+*/
+
+function Node(x, y)
+{
+    this.x = x;
+    this.y = y;
+    this.start = false;
+    this.end = false;
+    this.distance = Infinity;
+    this.wall = false;
+    this.previous = null;
+}
+
+//Adds all nodes on the table created as objects to an array
+function findNodes()
+{
+    let element = 0;
+    let x = 0;
+    let y = 0;
+    let id;
+    let node;
+    let gridNodes = [];
+    while(element != null)
+    {
+        id = x + '-' + y;
+        element = document.getElementById(id);
+        if(element === null)
+        {
+            x += 1;
+            y = 0;
+            id = x + '-' + y
+            element = document.getElementById(id);
+        }
+
+        if(element != null)
+        {
+            node = new Node(x,y);
+            gridNodes.push(node)
+        }
+        y += 1;
+    }
+    return gridNodes;
 }
 
 
