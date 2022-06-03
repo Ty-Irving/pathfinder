@@ -14,8 +14,7 @@ export function dijkstras()
 	let checkFinish = false;
 	console.log(nodeArray);
 
-	//while(checkFinish === false)
-	//{
+	//
 		//No outer Nodes have been checked
        
 		if(document.getElementsByClassName("visited").length === 0)
@@ -29,6 +28,7 @@ export function dijkstras()
 
             wordSplit = idStart.split('-');
             element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
+            element.distance = 0;
             element.start = true;
 
             x = element.x;
@@ -38,6 +38,7 @@ export function dijkstras()
             {
                 obj = searchArray(x-1, y, nodeArray);
                 obj.distance = 1;
+                obj.previous = searchArray(x,y, nodeArray);
                 element = document.getElementById(obj.x + '-' + obj.y)
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
@@ -50,6 +51,7 @@ export function dijkstras()
                 obj = searchArray(x, y - 1, nodeArray);
                 obj.distance = 1;
                 element = document.getElementById(obj.x + '-' + obj.y);
+                obj.previous = searchArray(x,y, nodeArray);
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
                 queueList.push(obj);
@@ -60,6 +62,7 @@ export function dijkstras()
                 obj = searchArray(x + 1, y, nodeArray);
                 obj.distance = 1;
                 element = document.getElementById(obj.x+ '-' + obj.y)
+                obj.previous = searchArray(x,y, nodeArray);
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
                 queueList.push(obj);
@@ -70,19 +73,97 @@ export function dijkstras()
                 obj = searchArray(x, y + 1, nodeArray);
                 obj.distance = 1;
                 element = document.getElementById(obj.x + '-' + obj.y)
+                obj.previous = searchArray(x,y, nodeArray);
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
                 queueList.push(obj);
             }     
 		}
-		//Atleast 1 outnode from start has been checked
-		else
-		{	
-			sortQueue(nodeArray);
-		}
-	//}	
-    
- //let obj = searchArray(0, 0, nodeArray);
+		while(checkFinish === false)
+        {
+            sortQueue(queueList);
+            console.log(queueList);
+            x = queueList[0].x;
+            y = queueList[0].y;
+            //check to see if its visited
+
+            if(x + 1 <= borderX)
+            {
+                element = document.getElementById((x+1) + '-' + y)
+                if(element.classList.contains('visited') === false)
+                {
+                    if(element.classList.contains('end') === true)
+                    {
+                        return;
+                    }
+                    element.classList.remove('unvisited');
+                    element.classList.add('visited');
+                    obj = searchArray(x+1, y, nodeArray);
+                    obj.previous = searchArray(x,y,nodeArray);
+                    obj.distance = obj.previous.distance + 1;
+                    queueList.push(obj);
+                }
+            }
+
+            if(x - 1 >= 0)
+            {
+                element = document.getElementById((x-1) + '-' + y)
+                if(element.classList.contains('visited') === false)
+                {
+                    if(element.classList.contains('end') === true)
+                    {
+                        return;
+                    }
+                    element.classList.remove('unvisited');
+                    element.classList.add('visited');
+                    obj = searchArray(x-1, y, nodeArray);
+                    obj.previous = searchArray(x,y,nodeArray);
+                    obj.distance = obj.previous.distance + 1;
+                    queueList.push(obj);
+                }
+            }
+            
+            if(y + 1 <= borderY)
+            {
+                element = document.getElementById(x + '-' + (y+1));
+                if(element.classList.contains('visited') === false)
+                {
+                    if(element.classList.contains('end') === true)
+                    {
+                        return;
+                    }
+                    element.classList.remove('unvisited');
+                    element.classList.add('visited');
+                    obj = searchArray(x, y+1, nodeArray);
+                    obj.previous = searchArray(x,y,nodeArray);
+                    obj.distance = obj.previous.distance + 1;
+                    queueList.push(obj);
+                }
+            }
+
+            if(y - 1 >= 0)
+            {
+                element = document.getElementById(x + '-' + (y-1));
+                if(element.classList.contains('visited') === false)
+                {
+                    if(element.classList.contains('end') === true)
+                    {
+                        return;
+                    }
+                    element.classList.remove('unvisited');
+                    element.classList.add('visited');
+                    obj = searchArray(x, y - 1, nodeArray);
+                    obj.previous = searchArray(x,y,nodeArray);
+                    obj.distance = obj.previous.distance + 1;
+                    queueList.push(obj);
+
+                }
+            }
+            console.log(queueList[0]);
+            queueList.shift();
+        }
+            
+	
 }
 
 function searchArray(a, b, arrayList)
