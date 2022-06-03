@@ -82,7 +82,6 @@ export function dijkstras()
 		while(checkFinish === false)
         {
             sortQueue(queueList);
-            console.log(queueList);
             x = queueList[0].x;
             y = queueList[0].y;
             //check to see if its visited
@@ -94,6 +93,7 @@ export function dijkstras()
                 {
                     if(element.classList.contains('end') === true)
                     {
+                        shortestPath(nodeArray, x, y);
                         return;
                     }
                     element.classList.remove('unvisited');
@@ -112,6 +112,7 @@ export function dijkstras()
                 {
                     if(element.classList.contains('end') === true)
                     {
+                        shortestPath(nodeArray, x, y);
                         return;
                     }
                     element.classList.remove('unvisited');
@@ -130,6 +131,7 @@ export function dijkstras()
                 {
                     if(element.classList.contains('end') === true)
                     {
+                        shortestPath(nodeArray, x, y);
                         return;
                     }
                     element.classList.remove('unvisited');
@@ -148,6 +150,7 @@ export function dijkstras()
                 {
                     if(element.classList.contains('end') === true)
                     {
+                        shortestPath(nodeArray, x, y);
                         return;
                     }
                     element.classList.remove('unvisited');
@@ -159,11 +162,28 @@ export function dijkstras()
 
                 }
             }
-            console.log(queueList[0]);
+
             queueList.shift();
         }
             
 	
+}
+
+function shortestPath(nodeArray, x, y)
+{
+    let obj = searchArray(x, y, nodeArray);
+    let element = document.getElementById(x + '-' + y);
+    let limit = obj.distance;
+    element.style.backgroundColor = 'orange';
+    obj = obj.previous;
+    for(let i = 0; i < limit - 1; i++)
+    {
+        x = obj.x;
+        y = obj.y; 
+        element = document.getElementById(x + '-' + y);
+        element.style.backgroundColor = 'orange';
+        obj = obj.previous;
+    }
 }
 
 function searchArray(a, b, arrayList)
