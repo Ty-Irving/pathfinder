@@ -6,6 +6,11 @@ tr,td
    
 }
 
+body 
+{
+    user-select: none;
+}
+
 table 
 {
     margin-left: auto;
@@ -32,3 +37,24 @@ table
     background-color: red;
     cursor: move;
 }
+
+#draggable {
+    text-align: center;
+    background: white;
+  }
+  
+  .dropzone {
+    width: 200px;
+    height: 20px;
+    background: rgb(44, 136, 37);
+    margin: 10px;
+    padding: 10px;
+  }
+  
+  .dropzone.dragover {
+    background-color: purple;
+  }
+  
+  .dragging {
+    opacity: .5;
+  }
