@@ -18,15 +18,17 @@ table
 
 .visited
 {
-    background-color: blue;
+    background-color: rgb(119, 104, 165);
 }
 
 .start 
 {
     background-color: green;
+    cursor: move;
 }
 
 .end
 {
     background-color: red;
+    cursor: move;
 }

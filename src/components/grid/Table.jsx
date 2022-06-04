@@ -1,12 +1,11 @@
 import "./table.scss"
-import { Component } from 'react';
-
+import React, { Component } from 'react';
 
 export default class Table extends Component {
-
+    
     componentDidMount()
     {
-        
+    
         if(document.getElementById("0-0") != null)
         {
             return
@@ -38,10 +37,12 @@ export default class Table extends Component {
                 
             }
         }
-        document.getElementById('25-24').classList.remove("unvisited")
-        document.getElementById('9-89').classList.remove("unvisited")
-        document.getElementById('25-24').classList.add("start")
-        document.getElementById('9-89').classList.add("end")
+        document.getElementById('10-4').classList.remove("unvisited")
+        document.getElementById('6-31').classList.remove("unvisited")
+        document.getElementById('10-4').setAttribute('draggable', 'true')
+        document.getElementById('6-31').setAttribute('draggable', 'true')
+        document.getElementById('10-4').classList.add("start")
+        document.getElementById('6-31').classList.add("end")
      
     }
     render(){

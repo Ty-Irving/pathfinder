@@ -1,5 +1,5 @@
 import "./header.scss"
-import {dijkstras} from './dijkstras'
+import {dijkstras} from '../../algorithms/dijkstras'
 
 export default function Header() {
   return (
