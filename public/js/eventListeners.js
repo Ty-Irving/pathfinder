@@ -14,7 +14,15 @@ document.addEventListener("dragstart", event => {
 
 document.addEventListener("dragend", event => {
   // reset the transparency
-  event.target.classList.remove("start");
+  if(dragged.classList.contains('start'))
+  {
+    event.target.classList.remove("start");
+  }
+  if(dragged.classList.contains('end'))
+  {
+    event.target.classList.remove("end");
+  }
+  
   console.log(event)
 });
 
@@ -26,15 +34,21 @@ document.addEventListener("dragover", event => {
 
 document.addEventListener("dragenter", event => {
   // highlight potential drop target when the draggable element enters it
-  if (event.target.classList.contains("dropzone")) {
-    event.target.classList.add("dragover");
+  if (event.target.classList.contains("unvisited") && dragged.classList.contains('start')) {
+    event.target.classList.add("dragover-start");
+  }
+  if (event.target.classList.contains("unvisited") && dragged.classList.contains('end')) {
+    event.target.classList.add("dragover-end");
   }
 });
 
 document.addEventListener("dragleave", event => {
   // reset background of potential drop target when the draggable element leaves it
-  if (event.target.classList.contains("dropzone")) {
-    event.target.classList.remove("dragover");
+  if (event.target.classList.contains("unvisited") && dragged.classList.contains('start')) {
+    event.target.classList.remove("dragover-start");
+  }
+  if (event.target.classList.contains("unvisited") && dragged.classList.contains('end')) {
+    event.target.classList.remove("dragover-end");
   }
 });
 
@@ -42,9 +56,20 @@ document.addEventListener("drop", event => {
   // prevent default action (open as link for some elements)
   event.preventDefault();
   // move dragged element to the selected drop target
-  if (event.target.classList.contains("unvisited")) {
+
+  if (event.target.classList.contains("unvisited") && dragged.classList.contains('start')) {
     event.target.classList.add('start');
     event.target.setAttribute('draggable', 'true');
-    event.target.classList.remove("dragover");
+    event.target.classList.remove("dragover-start");
+    document.getElementsByClassName('dragging')[0].removeAttribute('draggable')
+    document.getElementsByClassName('dragging')[0].classList.remove('dragging');
+  }
+
+  if (event.target.classList.contains("unvisited") && dragged.classList.contains('end')) {
+    event.target.classList.add('end');
+    event.target.setAttribute('draggable', 'true');
+    event.target.classList.remove("dragover-end");
+    document.getElementsByClassName('dragging')[0].removeAttribute('draggable')
+    document.getElementsByClassName('dragging')[0].classList.remove('dragging');
   }
 });

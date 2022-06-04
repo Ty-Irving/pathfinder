@@ -38,21 +38,15 @@ table
     cursor: move;
 }
 
-#draggable {
-    text-align: center;
-    background: white;
-  }
   
-  .dropzone {
-    width: 200px;
-    height: 20px;
-    background: rgb(44, 136, 37);
-    margin: 10px;
-    padding: 10px;
-  }
+
   
-  .dropzone.dragover {
-    background-color: purple;
+  .dragover-start {
+    background-color: green;
+  }
+
+  .dragover-end {
+    background-color: red;
   }
   
   .dragging {
