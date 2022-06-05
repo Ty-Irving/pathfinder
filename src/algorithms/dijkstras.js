@@ -10,9 +10,7 @@ export function dijkstras()
     let obj;
     let x = 5, y = 5;
     sortQueue(nodeArray);
-    
 	let checkFinish = false;
-	console.log(nodeArray);
 
 	//
 		//No outer Nodes have been checked
@@ -79,6 +77,7 @@ export function dijkstras()
             queueList.push(obj);
         }     
     }
+
     while(checkFinish === false)
     {
         sortQueue(queueList);
@@ -89,7 +88,7 @@ export function dijkstras()
         if(x + 1 <= borderX)
         {
             element = document.getElementById((x+1) + '-' + y)
-            if(element.classList.contains('visited') === false)
+            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
             {
                 if(element.classList.contains('end') === true)
                 {
@@ -108,7 +107,7 @@ export function dijkstras()
         if(x - 1 >= 0)
         {
             element = document.getElementById((x-1) + '-' + y)
-            if(element.classList.contains('visited') === false)
+            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
             {
                 if(element.classList.contains('end') === true)
                 {
@@ -127,7 +126,7 @@ export function dijkstras()
         if(y + 1 <= borderY)
         {
             element = document.getElementById(x + '-' + (y+1));
-            if(element.classList.contains('visited') === false)
+            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
             {
                 if(element.classList.contains('end') === true)
                 {
@@ -146,7 +145,7 @@ export function dijkstras()
         if(y - 1 >= 0)
         {
             element = document.getElementById(x + '-' + (y-1));
-            if(element.classList.contains('visited') === false)
+            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
             {
                 if(element.classList.contains('end') === true)
                 {
@@ -165,7 +164,6 @@ export function dijkstras()
         queueList.shift();
     }
             
-	
 }
 
 function shortestPath(nodeArray, x, y)
@@ -239,6 +237,11 @@ function findNodes()
         if(element != null)
         {
             node = new Node(x,y);
+            if(element.classList.contains('wall') === true)
+            {
+                node.wall = true;
+            }
+
             gridNodes.push(node)
         }
         y += 1;
