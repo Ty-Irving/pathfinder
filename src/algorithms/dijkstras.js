@@ -1,5 +1,7 @@
+
 export function dijkstras()
 {
+    clearTable();
 	let nodeArray = findNodes();
     let queueList = [];
     let startNode = document.getElementsByClassName('start');
@@ -209,6 +211,40 @@ function Node(x, y)
     this.distance = Infinity;
     this.wall = false;
     this.previous = null;
+}
+
+function clearTable()
+{
+    let element = 0;
+    let x = 0;
+    let y = 0;
+    let id;
+
+    while(element != null)
+    {
+        id = x + '-' + y;
+        element = document.getElementById(id);
+        if(element === null)
+        {
+            x += 1;
+            y = 0;
+            id = x + '-' + y
+            element = document.getElementById(id);
+        }
+
+
+        if(element != null)
+        {
+            if(element.classList.contains('visited') === true)
+            {
+                element.removeAttribute('style');
+                element.classList.remove('visited');
+                element.classList.add('unvisited');
+
+            }
+        }
+        y += 1;
+    }
 }
 
 
