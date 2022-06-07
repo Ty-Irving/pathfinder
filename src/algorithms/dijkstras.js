@@ -240,7 +240,6 @@ function clearTable()
                 element.removeAttribute('style');
                 element.classList.remove('visited');
                 element.classList.add('unvisited');
-
             }
         }
         y += 1;

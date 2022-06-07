@@ -6,10 +6,11 @@ export default function Header() {
 
   useEffect(() => {
     const script = document.createElement('script');
-  
+
+
+
     script.src = "/js/eventListeners.js";
     script.async = true;
-  
     document.body.appendChild(script);
 
     return () => {

@@ -54,6 +54,11 @@ document.getElementById('pathfinder-table').addEventListener("dragenter", event 
   if (event.target.classList.contains("unvisited") && dragged.classList.contains('start')) {
     event.target.classList.add("dragover-start");
   }
+
+  if(event.target.classList.contains('visited') && dragged.classList.contains('start'))
+  {
+    event.target.style.backgroundColor = 'green';
+  }
   if (event.target.classList.contains("unvisited") && dragged.classList.contains('end')) {
     event.target.classList.add("dragover-end");
   }
@@ -72,6 +77,10 @@ document.getElementById('pathfinder-table').addEventListener("dragleave", event 
   if (event.target.classList.contains("unvisited") && dragged.classList.contains('end')) {
     event.target.classList.remove("dragover-end");
   }
+  if((event.target.classList.contains('visited') || event.target.classList.contains('wall')) && dragged.classList.contains('start'))
+  {
+    event.target.removeAttribute('style');
+  }
 });
 
 document.getElementById('pathfinder-table').addEventListener("drop", event => {
@@ -83,15 +92,16 @@ document.getElementById('pathfinder-table').addEventListener("drop", event => {
     document.getElementsByClassName('dragging')[0].classList.remove('dragging');
   }
 
-  if (event.target.classList.contains("unvisited") && dragged.classList.contains('start')) {
+  if (dragged.classList.contains('start')) {
     event.target.classList.add('start');
     event.target.classList.remove("dragover-start");
-
+    event.target.classList.remove('wall')
   }
 
-  if (event.target.classList.contains("unvisited") && dragged.classList.contains('end')) {
+  if (dragged.classList.contains('end')) {
     event.target.classList.add('end');
     event.target.classList.remove("dragover-end");
   }
+
 
 });
