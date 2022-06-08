@@ -40,9 +40,12 @@ export function dijkstras()
             obj.distance = 1;
             element = document.getElementById(obj.x+ '-' + obj.y)
             obj.previous = searchArray(x,y, nodeArray);
-            element.classList.remove('unvisited');
-            element.classList.add('visited');
-            queueList.push(obj);
+            if(element.classList.contains('wall') !== true)
+            {
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }
         }
 
         if(x - 1 >= 0)
@@ -51,9 +54,12 @@ export function dijkstras()
             obj.distance = 1;
             obj.previous = searchArray(x,y, nodeArray);
             element = document.getElementById(obj.x + '-' + obj.y)
-            element.classList.remove('unvisited');
-            element.classList.add('visited');
-            queueList.push(obj);
+            if(element.classList.contains('wall') !== true)
+            {
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }
             
         }
 
@@ -63,9 +69,12 @@ export function dijkstras()
             obj.distance = 1;
             element = document.getElementById(obj.x + '-' + obj.y);
             obj.previous = searchArray(x,y, nodeArray);
-            element.classList.remove('unvisited');
-            element.classList.add('visited');
-            queueList.push(obj);
+            if(element.classList.contains('wall') !== true)
+            {
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }
         }
 
         if(y + 1 <= borderY)
@@ -74,14 +83,21 @@ export function dijkstras()
             obj.distance = 1;
             element = document.getElementById(obj.x + '-' + obj.y)
             obj.previous = searchArray(x,y, nodeArray);
-            element.classList.remove('unvisited');
-            element.classList.add('visited');
-            queueList.push(obj);
+            if(element.classList.contains('wall') !== true)
+            {
+                element.classList.remove('unvisited');
+                element.classList.add('visited');
+                queueList.push(obj);
+            }
         }     
     }
 
     while(checkFinish === false)
     {
+        if(queueList.length === 0)
+        {
+            return;
+        }
         sortQueue(queueList);
         x = queueList[0].x;
         y = queueList[0].y;
