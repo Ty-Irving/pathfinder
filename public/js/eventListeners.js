@@ -33,8 +33,9 @@ document.getElementById('pathfinder-table').addEventListener("dragend", event =>
 
 document.getElementById('pathfinder-table').addEventListener('click', event => 
 {
-  if(event.target.classList.contains('unvisited') && event.target.classList.contains('wall') != true && (event.target.classList.contains('start') != true || event.target.classList.contains('end') != true))
+  if(event.target.classList.contains('wall') != true && (event.target.classList.contains('start') != true || event.target.classList.contains('end') != true))
   {
+    event.target.removeAttribute('style');
     event.target.classList.add('wall');
   }
   else if(event.target.classList.contains('wall'))
@@ -63,8 +64,9 @@ document.getElementById('pathfinder-table').addEventListener("dragenter", event 
     event.target.classList.add("dragover-end");
   }
 
-  if(event.target.classList.contains('unvisited') && dragged.classList.contains('wall'))
+  if(event.target.classList.contains('start') != true && event.target.classList.contains('end') != true && dragged.classList.contains('wall'))
   {
+    event.target.removeAttribute('style');
     event.target.classList.add('wall');
   }
 });
