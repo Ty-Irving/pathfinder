@@ -3,6 +3,8 @@ const timer = ms => new Promise(res => setTimeout(res, ms))
 export async function animate(nodesToAnimate, shortestPathAnimate)
 {
     let lastNode = nodesToAnimate[0];
+    let table = document.getElementById('pathfinder-table')
+    table.style.pointerEvents = "none";
     while(nodesToAnimate.length !== 0)
     {
         //node animation here
@@ -26,4 +28,5 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
         shortestPathAnimate[i].classList.add('path');
         await timer(20);
     }
+    table.style.pointerEvents = "all";
 }

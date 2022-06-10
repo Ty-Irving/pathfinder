@@ -13,7 +13,7 @@ export default function dijkstras()
     let borderY = nodeArray[nodeArray.length - 1].y;
     let element;
     let obj;
-    let x = 5, y = 5;
+    let x, y;
     sortQueue(nodeArray);
 	let checkFinish = false;
 
