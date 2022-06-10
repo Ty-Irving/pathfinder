@@ -27,6 +27,11 @@ table
     background-color: green;
 }
 
+.node-colour
+{
+  background-color: rgb(119, 104, 165);
+  transition: 0.5s ease-in;
+}
 .wall
 {
   background-color: black;
@@ -53,11 +58,7 @@ table
     opacity: .5;
   }
 
-  .node-colour
-  {
-    background-color: rgb(119, 104, 165);
-    transition: 0.5s ease-in;
-  }
+
 
   .node-last
   {
