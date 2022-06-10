@@ -1,5 +1,5 @@
 
-export function dijkstras()
+export default function dijkstras()
 {
     clearTable();
 	let nodeArray = findNodes();
@@ -300,3 +300,4 @@ function findNodes()
 
     return gridNodes;
 }
+

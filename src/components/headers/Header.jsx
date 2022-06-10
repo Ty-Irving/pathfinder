@@ -1,6 +1,7 @@
 import "./header.scss"
-import {dijkstras} from '../../algorithms/dijkstras'
+
 import {useEffect} from 'react';
+import dijkstras from "../../algorithms/dijkstras.js";
 
 export default function Header() {
 
