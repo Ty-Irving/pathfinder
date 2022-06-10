@@ -1,3 +1,4 @@
+import { animate } from '../table/animation';
 import { findNodes, clearTable } from '../table/tablesetup'
 
 export default function dijkstras()
@@ -5,6 +6,7 @@ export default function dijkstras()
     clearTable();
 	let nodeArray = findNodes();
     let queueList = [];
+    let nodesToAnimate = [];
     let startNode = document.getElementsByClassName('start');
     let endNode = document.getElementsByClassName('end')
     let borderX = nodeArray[nodeArray.length - 1].x;
@@ -45,6 +47,7 @@ export default function dijkstras()
             {
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 queueList.push(obj);
             }
         }
@@ -59,6 +62,7 @@ export default function dijkstras()
             {
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 queueList.push(obj);
             }
             
@@ -74,6 +78,7 @@ export default function dijkstras()
             {
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 queueList.push(obj);
             }
         }
@@ -88,6 +93,7 @@ export default function dijkstras()
             {
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 queueList.push(obj);
             }
         }     
@@ -110,12 +116,14 @@ export default function dijkstras()
             if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
             {
                 if(element.classList.contains('end') === true)
-                {
-                    shortestPath(nodeArray, x, y);
+                { 
+                    let path = shortestPath(nodeArray, x, y);
+                    animate(nodesToAnimate, path);
                     return;
                 }
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 obj = searchArray(x+1, y, nodeArray);
                 obj.previous = searchArray(x,y,nodeArray);
                 obj.distance = obj.previous.distance + 1;
@@ -130,11 +138,14 @@ export default function dijkstras()
             {
                 if(element.classList.contains('end') === true)
                 {
-                    shortestPath(nodeArray, x, y);
+                    let path = shortestPath(nodeArray, x, y);
+                    animate(nodesToAnimate, path);
                     return;
                 }
+                
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 obj = searchArray(x-1, y, nodeArray);
                 obj.previous = searchArray(x,y,nodeArray);
                 obj.distance = obj.previous.distance + 1;
@@ -149,11 +160,13 @@ export default function dijkstras()
             {
                 if(element.classList.contains('end') === true)
                 {
-                    shortestPath(nodeArray, x, y);
+                    let path = shortestPath(nodeArray, x, y);
+                    animate(nodesToAnimate, path);
                     return;
                 }
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 obj = searchArray(x, y+1, nodeArray);
                 obj.previous = searchArray(x,y,nodeArray);
                 obj.distance = obj.previous.distance + 1;
@@ -168,11 +181,13 @@ export default function dijkstras()
             {
                 if(element.classList.contains('end') === true)
                 {
-                    shortestPath(nodeArray, x, y);
+                    let path = shortestPath(nodeArray, x, y);
+                    animate(nodesToAnimate, path);
                     return;
                 }
                 element.classList.remove('unvisited');
                 element.classList.add('visited');
+                nodesToAnimate.push(element);
                 obj = searchArray(x, y - 1, nodeArray);
                 obj.previous = searchArray(x,y,nodeArray);
                 obj.distance = obj.previous.distance + 1;
@@ -188,18 +203,20 @@ export default function dijkstras()
 function shortestPath(nodeArray, x, y)
 {
     let obj = searchArray(x, y, nodeArray);
+    let shortestPath = [];
     let element = document.getElementById(x + '-' + y);
     let limit = obj.distance;
-    element.style.backgroundColor = 'orange';
+    shortestPath.push(element);
     obj = obj.previous;
     for(let i = 0; i < limit - 1; i++)
     {
         x = obj.x;
         y = obj.y; 
         element = document.getElementById(x + '-' + y);
-        element.style.backgroundColor = 'orange';
         obj = obj.previous;
+        shortestPath.push(element);
     }
+    return shortestPath;
 }
 
 function searchArray(a, b, arrayList)

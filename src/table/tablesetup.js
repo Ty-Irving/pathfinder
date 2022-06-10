@@ -62,9 +62,10 @@ export function clearTable()
         {
             if(element.classList.contains('visited') === true)
             {
-                element.removeAttribute('style');
                 element.classList.remove('visited');
                 element.classList.add('unvisited');
+                element.classList.remove('node-colour');
+                element.classList.remove('path');
             }
         }
         y += 1;
