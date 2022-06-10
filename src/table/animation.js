@@ -6,7 +6,10 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
     while(nodesToAnimate.length !== 0)
     {
         //node animation here
-        lastNode.classList.add('node-colour')
+        if(lastNode.classList.contains('start') !== true)
+        {
+            lastNode.classList.add('node-colour')
+        }
         lastNode.classList.remove('node-last');
         nodesToAnimate.shift();
         lastNode = nodesToAnimate[0];
