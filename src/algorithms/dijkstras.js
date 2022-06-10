@@ -1,5 +1,5 @@
 import { animate } from '../table/animation';
-import { findNodes, clearTable } from '../table/tablesetup'
+import { findNodes, clearTable, searchArray, sortQueue} from '../table/tablesetup'
 
 export default function dijkstras()
 {
@@ -219,21 +219,6 @@ function shortestPath(nodeArray, x, y)
     return shortestPath;
 }
 
-function searchArray(a, b, arrayList)
-{
-    let obj = arrayList.find(o => o.x === a && o.y === b)
-    return obj;
-}
-
-//Sorts queue, might be easier to do this some other way
-//Sorts by distance from the start.
-
-function sortQueue(queueList)
-{
-    queueList.sort((a, b) => {
-        return a.distance - b.distance;
-    });
-}
 
 
 

@@ -71,3 +71,16 @@ export function clearTable()
         y += 1;
     }
 }
+
+export function searchArray(a, b, arrayList)
+{
+    let obj = arrayList.find(o => o.x === a && o.y === b)
+    return obj;
+}
+
+export function sortQueue(queueList)
+{
+    queueList.sort((a, b) => {
+        return a.distance - b.distance;
+    });
+}
