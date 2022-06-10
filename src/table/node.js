@@ -7,4 +7,7 @@ export function Node(x, y)
     this.distance = Infinity;
     this.wall = false;
     this.previous = null;
+    this.gcost = Infinity;
+    this.fcost = Infinity;
+    this.hcost = Infinity;
 }
