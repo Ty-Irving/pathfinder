@@ -23,6 +23,7 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
         
     }
 
+    if(shortestPathAnimate === null){return}
     for(let i = shortestPathAnimate.length - 1; i >= 0; i--)
     {
         shortestPathAnimate[i].classList.add('path');
