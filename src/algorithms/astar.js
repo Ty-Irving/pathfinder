@@ -1,84 +1,102 @@
 import { animate } from '../table/animation';
 import { findNodes, clearTable, searchArray, sortQueue} from '../table/tablesetup'
 
+let nodesToAnimate = [];
+let queueList = [];
+
 export default function astar()
 {
     clearTable();
     let nodeArray = findNodes();
-    let queueList = [];
-    let nodesToAnimate = [];
     let startNode = document.getElementsByClassName('start');
+    let wordSplit = startNode[0].id.split('-');
     let endNode = document.getElementsByClassName('end');
-    let borderX = nodeArray[nodeArray.length - 1].x;
-    let borderY = nodeArray[nodeArray.length - 1].y;
-    let element;
     let obj;
-    let x, y;
-    obj = searchArray(startNode, nodeArray);
+    obj = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
     queueList.push(obj)
     sortQueue(queueList);
 
     
-
+    
     while(queueList.length > 0)
     {
-        
+        queueList = checkNeighbors(queueList[0].x, queueList.y, nodeArray, queueList);
+        if(endNode.classList.contains('visited'));
+        {
+            animate(nodesToAnimate, null);
+        }
+    }
+
+    if(queueList.length === 0)
+    {
+        animate(nodesToAnimate, null);
     }
 
 
 
 }
 
-function checkNeighbors(queueList, nodeArray)
+function checkNeighbors(x, y, nodeArray , queueList)
 {
+    let borderX = nodeArray[nodeArray.length - 1].x;
+    let borderY = nodeArray[nodeArray.length - 1].y;
+
     if(x + 1 <= borderX)
     {
-        addToQueue(x+1, y, nodeArray);
+        addToQueue(x+1, y, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x+1 +'-'+ y));
     }
 
     if(x - 1 >= 0)
     {
-        addToQueue(x-1, y, nodeArray);
+        addToQueue(x-1, y, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x-1 +'-'+ y));
     }
 
     if(y + 1 <= borderY)
     {
-        addToQueue(x, y+1, nodeArray);
+        addToQueue(x, y+1, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x +'-'+ y+1));
     }
 
     if(y - 1 >= 0)
     {
-        addToQueue(x, y-1, nodeArray);
+        addToQueue(x, y-1, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x +'-'+ y-1));
     }
 
     if(x + 1 <= borderX && y + 1 <= borderY) //check walls
     {
-        addToQueue(x+1, y+1, nodeArray);
+        addToQueue(x+1, y+1, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x+1 +'-'+ y+1));
     }
 
     if(x - 1 >= 0 && y + 1 <= borderY) // check walls
     {
-        addToQueue(x-1, y+1, nodeArray);
+        addToQueue(x-1, y+1, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x-1 +'-'+ y+1));
     }
 
     if(x + 1 <= borderX && y - 1 >= 0) // check walls
     {
-        addToQueue(x+1, y-1, nodeArray);
+        addToQueue(x+1, y-1, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x+1 +'-'+ y-1));
     }
 
     if(x - 1 >= 0 && y - 1 >= 0) // check walls
     {
-        addToQueue(x-1, y-1, nodeArray);
+        addToQueue(x-1, y-1, nodeArray, queueList);
+        nodesToAnimate.push(document.getElementById(x-1 +'-'+ y-1));
     }
 
     return queueList;
 }
 
-function addToQueue(x, y, nodeArray)
+function addToQueue(x, y, nodeArray, queueList)
 {
-    obj = searchArray(x, y, nodeArray);
-    obj.distance = 1;
-    element = document.getElementById(obj.x+ '-' + obj.y)
+    let obj = searchArray(x, y, nodeArray);
+    obj = findDist(obj);
+    let element = document.getElementById(obj.x+ '-' + obj.y)
     obj.previous = searchArray(x,y, nodeArray);
     if(element.classList.contains('wall') !== true)
     {
@@ -90,7 +108,7 @@ function addToQueue(x, y, nodeArray)
 }
 
 //Find Distance from End or Start
-function findDist(x,y, nodeArray)
+function findDist(obj, nodeArray)
 {
     let startNode = document.getElementsByClassName('start');
     let endNode = document.getElementsByClassName('end');
@@ -104,14 +122,14 @@ function findDist(x,y, nodeArray)
     wordSplit = idStart.split('-');
     let start = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
 
-    let obj = searchArray(x,y, nodeArray);
-
     obj.gcost = distCalc(start, obj);
     obj.hcost = distCalc(end, obj);
     obj.fcost = obj.gcost + obj.hcost;
+
+    return obj;
 }
 
-function distCalc(goal, pos);
+function distCalc(goal, pos)
 {
     let a;
     let b;
