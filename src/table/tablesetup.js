@@ -84,3 +84,10 @@ export function sortQueue(queueList)
         return a.distance - b.distance;
     });
 }
+
+export function sortQueueAStar(queueList)
+{
+    queueList.sort((a, b) => {
+        return a.fcost - b.fcost;
+    });
+}

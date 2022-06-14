@@ -1,5 +1,5 @@
 import { animate } from '../table/animation';
-import { findNodes, clearTable, searchArray, sortQueue} from '../table/tablesetup'
+import { findNodes, clearTable, searchArray, sortQueueAStar} from '../table/tablesetup'
 
 let nodesToAnimate = [];
 let queueList = [];
@@ -14,13 +14,15 @@ export default function astar()
     let obj;
     obj = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
     queueList.push(obj)
-    sortQueue(queueList);
+    sortQueueAStar(queueList);
 
     
     
     while(queueList.length > 0)
     {
         queueList = checkNeighbors(queueList[0].x, queueList.y, nodeArray, queueList);
+        queueList.shift();
+        sortQueueAStar(queueList);
         if(endNode.classList.contains('visited'));
         {
             animate(nodesToAnimate, null);
