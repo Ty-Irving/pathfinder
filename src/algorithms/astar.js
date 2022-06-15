@@ -20,15 +20,8 @@ export default function astar()
     
     while(queueList.length > 0)
     {
-<<<<<<< Updated upstream
-        queueList = checkNeighbors(queueList[0].x, queueList.y, nodeArray, queueList);
-        queueList.shift();
-        sortQueueAStar(queueList);
-        if(endNode.classList.contains('visited'));
-=======
         queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
         if(endNode[0].classList.contains('visited') === true)
->>>>>>> Stashed changes
         {
             animate(nodesToAnimate, null);
         }
