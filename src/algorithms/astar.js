@@ -2,11 +2,11 @@ import { animate } from '../table/animation';
 import { findNodes, clearTable, searchArray, sortQueueAStar} from '../table/tablesetup'
 
 let nodesToAnimate = [];
-let queueList = [];
 
 export default function astar()
 {
     clearTable();
+    let queueList = [];
     let nodeArray = findNodes();
     let startNode = document.getElementsByClassName('start');
     let wordSplit = startNode[0].id.split('-');
@@ -16,17 +16,29 @@ export default function astar()
     queueList.push(obj)
     sortQueueAStar(queueList);
 
-    
+    let count = 0;
     
     while(queueList.length > 0)
     {
+<<<<<<< Updated upstream
         queueList = checkNeighbors(queueList[0].x, queueList.y, nodeArray, queueList);
         queueList.shift();
         sortQueueAStar(queueList);
         if(endNode.classList.contains('visited'));
+=======
+        queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
+        if(endNode[0].classList.contains('visited') === true)
+>>>>>>> Stashed changes
         {
             animate(nodesToAnimate, null);
         }
+        queueList.shift();
+        if(count === 10)
+        {
+          //  animate(nodesToAnimate);
+            return;
+        }
+        sortQueueAStar(queueList);
     }
 
     if(queueList.length === 0)
@@ -45,50 +57,75 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
     if(x + 1 <= borderX)
     {
-        addToQueue(x+1, y, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x+1 +'-'+ y));
+        if(document.getElementById((x+1) + "-"+y).classList.contains('visited')=== false)
+        {
+            addToQueue(x+1, y, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById((x+1) +'-'+ y));
+        }
+       
     }
 
     if(x - 1 >= 0)
     {
-        addToQueue(x-1, y, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x-1 +'-'+ y));
+        if(document.getElementById((x-1) + "-" + y).classList.contains('visited')=== false)
+        {
+            addToQueue(x-1, y, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById((x-1) +'-'+ y));
+        }
     }
 
     if(y + 1 <= borderY)
     {
-        addToQueue(x, y+1, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x +'-'+ y+1));
+        if(document.getElementById(x + "-" + (y+1)).classList.contains('visited')=== false)
+        {
+            addToQueue(x, y+1, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById(x +'-'+ (y+1)));
+        }
     }
 
     if(y - 1 >= 0)
     {
-        addToQueue(x, y-1, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x +'-'+ y-1));
+        if(document.getElementById(x + "-"+ (y-1)).classList.contains('visited')=== false)
+        {
+            addToQueue(x, y-1, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById(x +'-'+ (y-1)));
+        }
     }
 
     if(x + 1 <= borderX && y + 1 <= borderY) //check walls
     {
-        addToQueue(x+1, y+1, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x+1 +'-'+ y+1));
+        if(document.getElementById((x+1) + "-" + (y+1)).classList.contains('visited')=== false)
+        {
+            addToQueue(x+1, y+1, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
+        }
     }
 
     if(x - 1 >= 0 && y + 1 <= borderY) // check walls
     {
-        addToQueue(x-1, y+1, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x-1 +'-'+ y+1));
+        if(document.getElementById((x-1) + "-" + (y+1)).classList.contains('visited')=== false)
+        {
+            addToQueue(x-1, y+1, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
+        }
     }
 
     if(x + 1 <= borderX && y - 1 >= 0) // check walls
     {
-        addToQueue(x+1, y-1, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x+1 +'-'+ y-1));
+        if(document.getElementById((x+1) + "-" + (y-1)).classList.contains('visited')=== false)
+        {
+            addToQueue(x+1, y-1, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
+        }
     }
 
     if(x - 1 >= 0 && y - 1 >= 0) // check walls
     {
-        addToQueue(x-1, y-1, nodeArray, queueList);
-        nodesToAnimate.push(document.getElementById(x-1 +'-'+ y-1));
+        if(document.getElementById((x-1) + "-" + (y-1)).classList.contains('visited')=== false)
+        {
+            addToQueue(x-1, y-1, nodeArray, queueList);
+            nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
+        }
     }
 
     return queueList;
@@ -96,15 +133,16 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
 function addToQueue(x, y, nodeArray, queueList)
 {
+    console.log(x,y);
     let obj = searchArray(x, y, nodeArray);
-    obj = findDist(obj);
+    console.log(obj);
+    obj = findDist(obj, nodeArray);
     let element = document.getElementById(obj.x+ '-' + obj.y)
     obj.previous = searchArray(x,y, nodeArray);
     if(element.classList.contains('wall') !== true)
     {
         element.classList.remove('unvisited');
         element.classList.add('visited');
-        nodesToAnimate.push(element);
         queueList.push(obj);
     }
 }
@@ -112,6 +150,7 @@ function addToQueue(x, y, nodeArray, queueList)
 //Find Distance from End or Start
 function findDist(obj, nodeArray)
 {
+    console.log(obj);
     let startNode = document.getElementsByClassName('start');
     let endNode = document.getElementsByClassName('end');
     let idStart = startNode[0].id;
@@ -137,6 +176,8 @@ function distCalc(goal, pos)
     let b;
     let c;
 
+    console.log(goal);
+    console.log(pos);
     if(goal.x < pos.x)
     {
         if(goal.y > pos.y)
