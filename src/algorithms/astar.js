@@ -20,17 +20,14 @@ export default function astar()
     
     while(queueList.length > 0)
     {
-        queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
         if(endNode[0].classList.contains('visited') === true)
         {
             animate(nodesToAnimate, null);
-        }
-        queueList.shift();
-        if(count === 10)
-        {
-          //  animate(nodesToAnimate);
             return;
         }
+        queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
+        queueList.shift();
+        count++;
         sortQueueAStar(queueList);
     }
 
@@ -52,7 +49,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x+1) + "-"+y).classList.contains('visited')=== false)
         {
-            addToQueue(x+1, y, nodeArray, queueList);
+            addToQueue((x+1), y, nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x+1) +'-'+ y));
         }
        
@@ -62,7 +59,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x-1) + "-" + y).classList.contains('visited')=== false)
         {
-            addToQueue(x-1, y, nodeArray, queueList);
+            addToQueue((x-1), y, nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ y));
         }
     }
@@ -71,7 +68,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById(x + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            addToQueue(x, y+1, nodeArray, queueList);
+            addToQueue(x, (y+1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById(x +'-'+ (y+1)));
         }
     }
@@ -80,7 +77,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById(x + "-"+ (y-1)).classList.contains('visited')=== false)
         {
-            addToQueue(x, y-1, nodeArray, queueList);
+            addToQueue(x, (y-1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById(x +'-'+ (y-1)));
         }
     }
@@ -89,7 +86,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x+1) + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            addToQueue(x+1, y+1, nodeArray, queueList);
+            addToQueue((x+1), (y+1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
         }
     }
@@ -98,7 +95,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x-1) + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            addToQueue(x-1, y+1, nodeArray, queueList);
+            addToQueue((x-1), (y+1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
         }
     }
@@ -107,7 +104,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x+1) + "-" + (y-1)).classList.contains('visited')=== false)
         {
-            addToQueue(x+1, y-1, nodeArray, queueList);
+            addToQueue((x+1), (y-1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
         }
     }
@@ -116,7 +113,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x-1) + "-" + (y-1)).classList.contains('visited')=== false)
         {
-            addToQueue(x-1, y-1, nodeArray, queueList);
+            addToQueue((x-1), (y-1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
         }
     }
@@ -138,6 +135,7 @@ function addToQueue(x, y, nodeArray, queueList)
         element.classList.add('visited');
         queueList.push(obj);
     }
+    sortQueueAStar(queueList);
 }
 
 //Find Distance from End or Start
@@ -177,14 +175,14 @@ function distCalc(goal, pos)
         {
             a = (pos.x - goal.x);
             b = (goal.y - pos.y);
-            c = Math.sqrt(a^2 + b^2);
+            c = Math.sqrt((a*b) + (b*b));
             return(c);
         }
         else if(goal.y < pos.y)
         {
             a = (pos.x - goal.x);
             b = (pos.y - goal.y);
-            c = Math.sqrt(a^2 + b^2);
+            c = Math.sqrt((a*b) + (b*b));
             return(c);
         } 
         else 
@@ -198,14 +196,14 @@ function distCalc(goal, pos)
         {
             a = (goal.x - pos.x);
             b = (goal.y - pos.y);
-            c = Math.sqrt(a^2 + b^2);
+            c = Math.sqrt((a*b) + (b*b));
             return(c);
         }
         else if(goal.y < pos.y)
         {
             a = (goal.x - pos.x);
             b = (pos.y - goal.y);
-            c = Math.sqrt(a^2 + b^2);
+            c = Math.sqrt((a*b) + (b*b));
             return(c);
         } 
         else 
