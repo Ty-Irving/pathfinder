@@ -16,10 +16,10 @@ export default function astar()
     queueList.push(obj)
     sortQueueAStar(queueList);
 
-    let count = 0;
     
     while(queueList.length > 0)
     {
+        sortQueueAStar(queueList);
         if(endNode[0].classList.contains('visited') === true)
         {
             animate(nodesToAnimate, null);
@@ -27,8 +27,6 @@ export default function astar()
         }
         queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
         queueList.shift();
-        count++;
-        sortQueueAStar(queueList);
     }
 
     if(queueList.length === 0)
@@ -49,7 +47,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x+1) + "-"+y).classList.contains('visited')=== false)
         {
-            addToQueue((x+1), y, nodeArray, queueList);
+            queueList = addToQueue((x+1), y, nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x+1) +'-'+ y));
         }
        
@@ -59,7 +57,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x-1) + "-" + y).classList.contains('visited')=== false)
         {
-            addToQueue((x-1), y, nodeArray, queueList);
+            queueList = addToQueue((x-1), y, nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ y));
         }
     }
@@ -68,7 +66,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById(x + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            addToQueue(x, (y+1), nodeArray, queueList);
+            queueList = addToQueue(x, (y+1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById(x +'-'+ (y+1)));
         }
     }
@@ -77,7 +75,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById(x + "-"+ (y-1)).classList.contains('visited')=== false)
         {
-            addToQueue(x, (y-1), nodeArray, queueList);
+            queueList = addToQueue(x, (y-1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById(x +'-'+ (y-1)));
         }
     }
@@ -86,7 +84,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x+1) + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            addToQueue((x+1), (y+1), nodeArray, queueList);
+            queueList = addToQueue((x+1), (y+1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
         }
     }
@@ -95,7 +93,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x-1) + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            addToQueue((x-1), (y+1), nodeArray, queueList);
+            queueList = addToQueue((x-1), (y+1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
         }
     }
@@ -104,7 +102,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x+1) + "-" + (y-1)).classList.contains('visited')=== false)
         {
-            addToQueue((x+1), (y-1), nodeArray, queueList);
+            queueList = addToQueue((x+1), (y-1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
         }
     }
@@ -113,7 +111,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
     {
         if(document.getElementById((x-1) + "-" + (y-1)).classList.contains('visited')=== false)
         {
-            addToQueue((x-1), (y-1), nodeArray, queueList);
+            queueList = addToQueue((x-1), (y-1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
         }
     }
@@ -123,7 +121,6 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
 function addToQueue(x, y, nodeArray, queueList)
 {
-    console.log(x,y);
     let obj = searchArray(x, y, nodeArray);
     console.log(obj);
     obj = findDist(obj, nodeArray);
@@ -136,6 +133,7 @@ function addToQueue(x, y, nodeArray, queueList)
         queueList.push(obj);
     }
     sortQueueAStar(queueList);
+    return queueList;
 }
 
 //Find Distance from End or Start
