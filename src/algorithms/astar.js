@@ -48,7 +48,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
         if(document.getElementById((x+1) + "-"+y).classList.contains('visited')=== false)
         {
             queueList = addToQueue((x+1), y, nodeArray, queueList);
-            nodesToAnimate.push(document.getElementById((x+1) +'-'+ y));
+            nodesToAnimate.push(document.getElementById((x+1) +'-'+ y));     
         }
        
     }
@@ -64,9 +64,10 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
     if(y + 1 <= borderY)
     {
+
         if(document.getElementById(x + "-" + (y+1)).classList.contains('visited')=== false)
         {
-            queueList = addToQueue(x, (y+1), nodeArray, queueList);
+            queueList = addToQueue(x, (y + 1), nodeArray, queueList);
             nodesToAnimate.push(document.getElementById(x +'-'+ (y+1)));
         }
     }
@@ -115,31 +116,28 @@ function checkNeighbors(x, y, nodeArray , queueList)
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
         }
     }
-
     return queueList;
 }
 
 function addToQueue(x, y, nodeArray, queueList)
 {
     let obj = searchArray(x, y, nodeArray);
-    console.log(obj);
     obj = findDist(obj, nodeArray);
     let element = document.getElementById(obj.x+ '-' + obj.y)
-    obj.previous = searchArray(x,y, nodeArray);
+    obj.previous = searchArray(x,y, nodeArray); //CHANGE THIS
     if(element.classList.contains('wall') !== true)
     {
         element.classList.remove('unvisited');
         element.classList.add('visited');
         queueList.push(obj);
     }
-    sortQueueAStar(queueList);
+
     return queueList;
 }
 
 //Find Distance from End or Start
 function findDist(obj, nodeArray)
 {
-    console.log(obj);
     let startNode = document.getElementsByClassName('start');
     let endNode = document.getElementsByClassName('end');
     let idStart = startNode[0].id;
@@ -165,8 +163,6 @@ function distCalc(goal, pos)
     let b;
     let c;
 
-    console.log(goal);
-    console.log(pos);
     if(goal.x < pos.x)
     {
         if(goal.y > pos.y)
