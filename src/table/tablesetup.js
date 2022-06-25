@@ -88,6 +88,6 @@ export function sortQueue(queueList)
 export function sortQueueAStar(queueList)
 {
     queueList.sort((a, b) => {
-        return a.fcost - b.fcost;
+        return parseFloat(a.fcost) - parseFloat(b.fcost);
     });
 }
