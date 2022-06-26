@@ -14,12 +14,22 @@ export default function astar()
     obj = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
     sortQueueAStar(queueList);
     queueList.push(obj)
-
+    startNode[0].classList.add('visited');
     
     while(queueList.length > 0)
     {
         queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
         sortQueueAStar(queueList);
+        console.log(queueList[0], "start");
+        console.log(queueList[1]);
+        console.log(queueList[2]);
+        console.log(queueList[3]);
+        console.log(queueList[4]);
+        console.log(queueList[5]);
+        console.log(queueList[6]);
+        console.log(queueList[7]);
+        console.log(queueList[8]);
+        console.log(queueList[9]);
     }
 
     if(queueList.length === 0)
@@ -155,6 +165,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
         animate(nodesToAnimate, path);
         return;
     }
+    console.log(queueList[0], "removed");
     queueList.shift();
     return queueList;
 }
@@ -168,8 +179,6 @@ function addToQueue(x, y, nodeArray, queueList, previous)
     element.classList.remove('unvisited');
     element.classList.add('visited');
     queueList.push(obj);
-    
-
     return queueList;
 }
 
