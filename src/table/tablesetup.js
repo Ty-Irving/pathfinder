@@ -38,6 +38,8 @@ export function findNodes()
     return gridNodes;
 }
 
+
+
 export function clearTable()
 {
     let element = 0;
