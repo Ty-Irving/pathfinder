@@ -27,26 +27,7 @@ export default function astar()
         }
         queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
         console.log("shifted ", queueList[0]);
-        queueList.shift();
-        queueList.sort((a, b) => parseFloat(a.fcost) - parseFloat(b.fcost));
-        if(queueList[0].x === 18  && queueList[0].y === 18)
-        {
-            console.log(queueList[0]);
-            console.log(queueList[1]);
-            console.log(queueList[2]);
-            console.log(queueList[3]);
-            console.log(queueList[4]);
-            console.log(queueList[5]);
-            console.log(queueList[6]);
-            console.log(queueList[7]);
-            console.log(queueList[8]);
-            console.log(queueList[9]);
-            console.log(queueList[10]);
-            console.log(queueList[11]);
-            console.log(queueList[12]);
-         
-            
-        }
+        sortQueueAStar(queueList);
     }
 
     if(queueList.length === 0)
@@ -136,6 +117,7 @@ function checkNeighbors(x, y, nodeArray , queueList)
             nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
         }
     }
+    queueList.shift();
     return queueList;
 }
 
