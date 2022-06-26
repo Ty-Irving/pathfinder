@@ -18,7 +18,7 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
         if(lastNode !== undefined)
         {
             lastNode.classList.add('node-last');
-            await timer(5);
+            await timer(7);
         }
         
     }
