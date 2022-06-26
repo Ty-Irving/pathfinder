@@ -10,7 +10,6 @@ export default function astar()
     let nodeArray = findNodes();
     let startNode = document.getElementsByClassName('start');
     let wordSplit = startNode[0].id.split('-');
-    let endNode = document.getElementsByClassName('end');
     let obj;
     obj = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
     sortQueueAStar(queueList);
@@ -20,14 +19,6 @@ export default function astar()
     while(queueList.length > 0)
     {
         queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
-        console.log("shifted ", queueList[0]);
-        if(endNode[0].classList.contains('visited') === true)
-        {
-            let path = shortestPath(nodeArray, queueList[0].x, queueList[0].y);
-            console.log(path)
-            animate(nodesToAnimate, path);
-            return;
-        }
         sortQueueAStar(queueList);
     }
 
@@ -42,6 +33,7 @@ export default function astar()
 
 function checkNeighbors(x, y, nodeArray , queueList)
 {
+    let endNode = document.getElementsByClassName('end');
     let borderX = nodeArray[nodeArray.length - 1].x;
     let borderY = nodeArray[nodeArray.length - 1].y;
 
@@ -90,12 +82,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
         {
             if(document.getElementById((x+1) + "-" + (y)).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x+1), (y+1), nodeArray, queueList,searchArray((x+1), y, nodeArray));
+                queueList = addToQueue((x+1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
             }
             else if (document.getElementById((x) + "-" + (y+1)).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x+1), (y+1), nodeArray, queueList,searchArray(x, (y+1), nodeArray));
+                queueList = addToQueue((x+1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
             }
 
@@ -108,12 +100,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
         {
             if(document.getElementById((x) + "-" + (y+1)).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x-1), (y+1), nodeArray, queueList,searchArray(x, (y+1), nodeArray));
+                queueList = addToQueue((x-1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
             }
             else if (document.getElementById((x-1) + "-" + y).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x-1), (y+1), nodeArray, queueList,searchArray((x-1), y, nodeArray));
+                queueList = addToQueue((x-1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
             }
 
@@ -126,12 +118,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
         {
             if(document.getElementById((x+1) + "-" + (y)).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x+1), (y-1), nodeArray, queueList,searchArray((x+1), y, nodeArray));
+                queueList = addToQueue((x+1), (y-1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
             }
             else if (document.getElementById((x) + "-" + (y-1)).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x+1), (y-1), nodeArray, queueList,searchArray(x, (y-1), nodeArray));
+                queueList = addToQueue((x+1), (y-1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
             }
 
@@ -150,11 +142,18 @@ function checkNeighbors(x, y, nodeArray , queueList)
             }
             else if (document.getElementById((x-1) + "-" + y).classList.contains('wall') === false)
             {
-                queueList = addToQueue((x-1), (y-1), nodeArray, queueList,searchArray((x-1), y, nodeArray));
+                queueList = addToQueue((x-1), (y-1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
             }
 
         }
+    }
+    if(endNode[0].classList.contains('visited') === true)
+    {
+        let path = shortestPath(nodeArray, queueList[0].x, queueList[0].y);
+        console.log(path)
+        animate(nodesToAnimate, path);
+        return;
     }
     queueList.shift();
     return queueList;
