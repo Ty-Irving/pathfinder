@@ -38,6 +38,8 @@ export function findNodes()
     return gridNodes;
 }
 
+
+
 export function clearTable()
 {
     let element = 0;
@@ -82,5 +84,12 @@ export function sortQueue(queueList)
 {
     queueList.sort((a, b) => {
         return a.distance - b.distance;
+    });
+}
+
+export function sortQueueAStar(queueList)
+{
+    queueList.sort((a, b) => {
+            return parseFloat(a.fcost) - parseFloat(b.fcost) && parseFloat(a.hcost) - parseFloat(b.hcost);
     });
 }

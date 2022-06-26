@@ -103,6 +103,7 @@ export default function dijkstras()
     {
         if(queueList.length === 0)
         {
+            animate(nodesToAnimate, null);
             return;
         }
         sortQueue(queueList);

@@ -27,7 +27,7 @@ table
 .node-colour
 {
   background-color: rgb(119, 104, 165);
-  transition: 0.5s ease-in;
+  transition: 1s ease-in;
 }
 .wall
 {
@@ -69,4 +69,5 @@ table
   .path
   {
     background-color: orange;
+    transition: 0.1s;
   }
