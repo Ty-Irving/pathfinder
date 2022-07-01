@@ -5,6 +5,8 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
     let lastNode = nodesToAnimate[0];
     let table = document.getElementById('pathfinder-table')
     table.style.pointerEvents = "none";
+    let legend = document.getElementsByClassName('algorithms')
+    legend[0].style.pointerEvents = "none";
     while(nodesToAnimate.length !== 0)
     {
         //node animation here
@@ -23,11 +25,17 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
         
     }
 
-    if(shortestPathAnimate === null){return}
+    if(shortestPathAnimate === null)
+    {
+        table.style.pointerEvents = "all";
+        legend[0].style.pointerEvents = "all";
+        return;
+    }
     for(let i = shortestPathAnimate.length - 1; i >= 0; i--)
     {
         shortestPathAnimate[i].classList.add('path');
         await timer(20);
     }
     table.style.pointerEvents = "all";
+    legend[0].style.pointerEvents = "all";
 }
