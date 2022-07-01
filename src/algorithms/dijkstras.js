@@ -1,18 +1,16 @@
 import { animate } from '../table/animation';
 import { findNodes, clearTable, searchArray, sortQueue} from '../table/tablesetup'
-
+let nodesToAnimate = [];
 export default function dijkstras()
 {
     clearTable();
 	let nodeArray = findNodes();
     let queueList = [];
-    let nodesToAnimate = [];
     let startNode = document.getElementsByClassName('start');
     let endNode = document.getElementsByClassName('end')
     let borderX = nodeArray[nodeArray.length - 1].x;
     let borderY = nodeArray[nodeArray.length - 1].y;
     let element;
-    let obj;
     let x, y;
     sortQueue(nodeArray);
 	let checkFinish = false;
@@ -20,90 +18,35 @@ export default function dijkstras()
 	//
 		//No outer Nodes have been checked
        
-    if(document.getElementsByClassName("visited").length === 0)
-    {	
-        let idStart = startNode[0].id;
-        let idEnd = endNode[0].id;
     
-        let wordSplit = idEnd.split('-')
-        element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
-        element.end = true;
+    let idStart = startNode[0].id;
+    let idEnd = endNode[0].id;
 
-        wordSplit = idStart.split('-');
-        element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
-        element.distance = 0;
-        element.start = true;
+    let wordSplit = idEnd.split('-')
+    element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
+    element.end = true;
 
-        x = element.x;
-        y = element.y;
-        
-        if(x + 1 <= borderX)
-        {
-            obj = searchArray(x + 1, y, nodeArray);
-            obj.distance = 1;
-            element = document.getElementById(obj.x+ '-' + obj.y)
-            obj.previous = searchArray(x,y, nodeArray);
-            if(element.classList.contains('wall') !== true)
-            {
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                queueList.push(obj);
-            }
-        }
+    wordSplit = idStart.split('-');
+    element = searchArray(parseInt(wordSplit[0]), parseInt(wordSplit[1]), nodeArray);
+    element.distance = 0;
+    element.start = true;
 
-        if(x - 1 >= 0)
-        {
-            obj = searchArray(x-1, y, nodeArray);
-            obj.distance = 1;
-            obj.previous = searchArray(x,y, nodeArray);
-            element = document.getElementById(obj.x + '-' + obj.y)
-            if(element.classList.contains('wall') !== true)
-            {
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                queueList.push(obj);
-            }
-            
-        }
-
-        if(y - 1 >= 0)
-        {
-            obj = searchArray(x, y - 1, nodeArray);
-            obj.distance = 1;
-            element = document.getElementById(obj.x + '-' + obj.y);
-            obj.previous = searchArray(x,y, nodeArray);
-            if(element.classList.contains('wall') !== true)
-            {
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                queueList.push(obj);
-            }
-        }
-
-        if(y + 1 <= borderY)
-        {
-            obj = searchArray(x, y + 1, nodeArray);
-            obj.distance = 1;
-            element = document.getElementById(obj.x + '-' + obj.y)
-            obj.previous = searchArray(x,y, nodeArray);
-            if(element.classList.contains('wall') !== true)
-            {
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                queueList.push(obj);
-            }
-        }     
-    }
+    x = element.x;
+    y = element.y;
+    queueList.push(element)
 
     while(checkFinish === false)
     {
+        
         if(queueList.length === 0)
         {
             animate(nodesToAnimate, null);
+            return;
+        }
+        if(endNode[0].classList.contains('visited') === true)
+        {
+            let path = shortestPath(nodeArray, x, y);
+            animate(nodesToAnimate, path);
             return;
         }
         sortQueue(queueList);
@@ -113,88 +56,23 @@ export default function dijkstras()
 
         if(x + 1 <= borderX)
         {
-            element = document.getElementById((x+1) + '-' + y)
-            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
-            {
-                if(element.classList.contains('end') === true)
-                { 
-                    let path = shortestPath(nodeArray, x, y);
-                    animate(nodesToAnimate, path);
-                    return;
-                }
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                obj = searchArray(x+1, y, nodeArray);
-                obj.previous = searchArray(x,y,nodeArray);
-                obj.distance = obj.previous.distance + 1;
-                queueList.push(obj);
-            }
+            checkNode((x+1), y, nodeArray, queueList, x, y);
         }
 
         if(x - 1 >= 0)
         {
-            element = document.getElementById((x-1) + '-' + y)
-            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
-            {
-                if(element.classList.contains('end') === true)
-                {
-                    let path = shortestPath(nodeArray, x, y);
-                    animate(nodesToAnimate, path);
-                    return;
-                }
-                
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                obj = searchArray(x-1, y, nodeArray);
-                obj.previous = searchArray(x,y,nodeArray);
-                obj.distance = obj.previous.distance + 1;
-                queueList.push(obj);
-            }
+            checkNode((x-1), y, nodeArray, queueList, x, y);
         }
         
         if(y + 1 <= borderY)
         {
-            element = document.getElementById(x + '-' + (y+1));
-            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
-            {
-                if(element.classList.contains('end') === true)
-                {
-                    let path = shortestPath(nodeArray, x, y);
-                    animate(nodesToAnimate, path);
-                    return;
-                }
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                obj = searchArray(x, y+1, nodeArray);
-                obj.previous = searchArray(x,y,nodeArray);
-                obj.distance = obj.previous.distance + 1;
-                queueList.push(obj);
-            }
+            checkNode(x, (y+1), nodeArray, queueList, x, y);
         }
 
         if(y - 1 >= 0)
         {
-            element = document.getElementById(x + '-' + (y-1));
-            if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
-            {
-                if(element.classList.contains('end') === true)
-                {
-                    let path = shortestPath(nodeArray, x, y);
-                    animate(nodesToAnimate, path);
-                    return;
-                }
-                element.classList.remove('unvisited');
-                element.classList.add('visited');
-                nodesToAnimate.push(element);
-                obj = searchArray(x, y - 1, nodeArray);
-                obj.previous = searchArray(x,y,nodeArray);
-                obj.distance = obj.previous.distance + 1;
-                queueList.push(obj);
-
-            }
+            checkNode(x, (y-1), nodeArray, queueList, x, y);
+            
         }
         queueList.shift();
     }
@@ -203,15 +81,10 @@ export default function dijkstras()
 
 function checkNode(x,y, nodeArray, queueList, prevx,prevy)
 {
+    let obj, element;
     element = document.getElementById(x + '-' + (y));
     if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
     {
-        if(element.classList.contains('end') === true)
-        {
-            let path = shortestPath(nodeArray, x, y);
-            animate(nodesToAnimate, path);
-            return;
-        }
         element.classList.remove('unvisited');
         element.classList.add('visited');
         nodesToAnimate.push(element);
