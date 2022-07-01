@@ -4,7 +4,7 @@ export async function animate(nodesToAnimate, shortestPathAnimate)
 {
     let lastNode = nodesToAnimate[0];
     let table = document.getElementById('pathfinder-table')
-   // table.style.pointerEvents = "none";
+    table.style.pointerEvents = "none";
     while(nodesToAnimate.length !== 0)
     {
         //node animation here

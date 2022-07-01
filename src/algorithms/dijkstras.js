@@ -201,6 +201,29 @@ export default function dijkstras()
             
 }
 
+function checkNode(x,y, nodeArray, queueList, prevx,prevy)
+{
+    element = document.getElementById(x + '-' + (y));
+    if(element.classList.contains('visited') === false && element.classList.contains('wall') === false)
+    {
+        if(element.classList.contains('end') === true)
+        {
+            let path = shortestPath(nodeArray, x, y);
+            animate(nodesToAnimate, path);
+            return;
+        }
+        element.classList.remove('unvisited');
+        element.classList.add('visited');
+        nodesToAnimate.push(element);
+        obj = searchArray(x, y, nodeArray);
+        obj.previous = searchArray(prevx,prevy,nodeArray);
+        obj.distance = obj.previous.distance + 1;
+        queueList.push(obj);
+
+    }
+    return queueList;
+}
+
 function shortestPath(nodeArray, x, y)
 {
     let obj = searchArray(x, y, nodeArray);
