@@ -47,9 +47,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
     if(x + 1 <= borderX && y + 1 <= borderY) //check walls
     {
-        queueList = checkNode((x+1), (y+1), queueList, nodeArray, x, y)
-        if(endNode[0].classList.contains('visited')){
-            return queueList;
+        if(document.getElementById((x+1) + '-' + (y)).classList.contains('wall') === false || document.getElementById((x) + '-' + (y+1)).classList.contains('wall') === false)
+        {
+            queueList = checkNode((x+1), (y+1), queueList, nodeArray, x, y)
+            if(endNode[0].classList.contains('visited')){
+                return queueList;
+            }
         }
     }
     
@@ -63,9 +66,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
     if(x - 1 >= 0 && y + 1 <= borderY) // check walls
     {
-        queueList = checkNode((x-1), (y+1), queueList, nodeArray, x, y)
-        if(endNode[0].classList.contains('visited')){
-            return queueList;
+        if(document.getElementById((x-1) + '-' + (y)).classList.contains('wall') === false || document.getElementById((x) + '-' + (y+1)).classList.contains('wall') === false)
+        {
+            queueList = checkNode((x-1), (y+1), queueList, nodeArray, x, y)
+            if(endNode[0].classList.contains('visited')){
+                return queueList;
+            }
         }
     }
 
@@ -79,11 +85,14 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
     if(x + 1 <= borderX && y - 1 >= 0) // check walls
     {
-
-        queueList = checkNode((x+1), (y-1), queueList, nodeArray, x, y)
-        if(endNode[0].classList.contains('visited')){
-            return queueList;
+        if(document.getElementById((x+1) + '-' + (y)).classList.contains('wall') === false || document.getElementById((x) + '-' + (y-1)).classList.contains('wall') === false)
+        {
+            queueList = checkNode((x+1), (y-1), queueList, nodeArray, x, y)
+            if(endNode[0].classList.contains('visited')){
+                return queueList;
+            }
         }
+        
     }
 
     if(y - 1 >= 0)
@@ -97,10 +106,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
 
     if(x - 1 >= 0 && y - 1 >= 0) // check walls
     {
-
-        queueList = checkNode((x-1), (y-1), queueList, nodeArray, x, y)
-        if(endNode[0].classList.contains('visited')){
-            return queueList;
+        if(document.getElementById((x) + '-' + (y-1)).classList.contains('wall') === false || document.getElementById((x-1) + '-' + (y)).classList.contains('wall') === false)
+        {
+            queueList = checkNode((x-1), (y-1), queueList, nodeArray, x, y)
+            if(endNode[0].classList.contains('visited')){
+                return queueList;
+            }
         }
     }
 
