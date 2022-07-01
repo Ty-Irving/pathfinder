@@ -103,6 +103,7 @@ document.getElementById('pathfinder-table').addEventListener("drop", event => {
   if (dragged.classList.contains('end')) {
     event.target.classList.add('end');
     event.target.classList.remove("dragover-end");
+    event.target.classList.remove('wall')
   }
 
 
