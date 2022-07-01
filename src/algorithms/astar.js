@@ -3,7 +3,7 @@ import { findNodes, clearTable, searchArray, sortQueueAStar} from '../table/tabl
 
 let nodesToAnimate = [];
 
-export default function astar()
+export function astar()
 {
     clearTable();
     let queueList = [];
@@ -20,16 +20,6 @@ export default function astar()
     {
         queueList = checkNeighbors(queueList[0].x, queueList[0].y, nodeArray, queueList);
         sortQueueAStar(queueList);
-        console.log(queueList[0], "start");
-        console.log(queueList[1]);
-        console.log(queueList[2]);
-        console.log(queueList[3]);
-        console.log(queueList[4]);
-        console.log(queueList[5]);
-        console.log(queueList[6]);
-        console.log(queueList[7]);
-        console.log(queueList[8]);
-        console.log(queueList[9]);
     }
 
     if(queueList.length === 0)
@@ -50,88 +40,55 @@ function checkNeighbors(x, y, nodeArray , queueList)
     if(x + 1 <= borderX)
     {
        
-        if(document.getElementById((x+1) + "-"+y).classList.contains('visited') === false && document.getElementById((x+1) + "-"+y).classList.contains('wall')=== false)
-        {
-            queueList = addToQueue((x+1), y, nodeArray, queueList, searchArray(x, y, nodeArray));
-            nodesToAnimate.push(document.getElementById((x+1) +'-'+ y));     
-        }
+        queueList = checkNode((x+1), y, nodeArray, queueList, x, y)
        
     }
 
     if(x - 1 >= 0)
     {
-        if(document.getElementById((x-1) + "-" + y).classList.contains('visited')=== false && document.getElementById((x-1) + "-"+y).classList.contains('wall')=== false)
-        {
-            queueList = addToQueue((x-1), y, nodeArray, queueList, searchArray(x, y, nodeArray));
-            nodesToAnimate.push(document.getElementById((x-1) +'-'+ y));
-        }
+        queueList = checkNode((x-1), y, nodeArray, queueList, x, y)
     }
 
     if(y + 1 <= borderY)
     {
 
-        if(document.getElementById(x + "-" + (y+1)).classList.contains('visited') === false && document.getElementById(x + "-" + (y+1)).classList.contains('wall') === false)
-        {
-            queueList = addToQueue(x, (y + 1), nodeArray, queueList, searchArray(x, y, nodeArray));
-            nodesToAnimate.push(document.getElementById(x +'-'+ (y+1)));
-        }
+        queueList = checkNode(x,(y+1), nodeArray, queueList, x, y);
     }
 
     if(y - 1 >= 0)
     {
-        if(document.getElementById(x + "-"+ (y-1)).classList.contains('visited')=== false && document.getElementById(x + "-"+ (y-1)).classList.contains('wall')=== false)
-        {
-            queueList = addToQueue(x, (y-1), nodeArray, queueList, searchArray(x, y, nodeArray));
-            nodesToAnimate.push(document.getElementById(x +'-'+ (y-1)));
-        }
+        queueList = checkNode(x,(y-1), nodeArray, queueList, x, y);
     }
 
-    if(x + 1 <= borderX && y + 1 <= borderY) //check walls
+    if(x + 1 <= borderX && y + 1 <= borderY)
     {
         if(document.getElementById((x+1) + "-" + (y+1)).classList.contains('visited') === false && document.getElementById((x+1) + "-" + (y+1)).classList.contains('wall') === false)
         {
-            if(document.getElementById((x+1) + "-" + (y)).classList.contains('wall') === false)
+            if(document.getElementById((x+1) + "-" + (y)).classList.contains('wall') === false || document.getElementById((x) + "-" + (y+1)).classList.contains('wall') === false)
             {
                 queueList = addToQueue((x+1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
             }
-            else if (document.getElementById((x) + "-" + (y+1)).classList.contains('wall') === false)
-            {
-                queueList = addToQueue((x+1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
-                nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y+1)));
-            }
-
         }
     }
 
-    if(x - 1 >= 0 && y + 1 <= borderY) // check walls
+    if(x - 1 >= 0 && y + 1 <= borderY)
     {
         if(document.getElementById((x-1) + "-" + (y+1)).classList.contains('visited') === false && document.getElementById((x-1) + "-" + (y+1)).classList.contains('wall') === false)
         {
-            if(document.getElementById((x) + "-" + (y+1)).classList.contains('wall') === false)
+            if(document.getElementById((x) + "-" + (y+1)).classList.contains('wall') === false || document.getElementById((x-1) + "-" + y).classList.contains('wall') === false)
             {
                 queueList = addToQueue((x-1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
             }
-            else if (document.getElementById((x-1) + "-" + y).classList.contains('wall') === false)
-            {
-                queueList = addToQueue((x-1), (y+1), nodeArray, queueList,searchArray(x, y, nodeArray));
-                nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y+1)));
-            }
-
         }
     }
 
-    if(x + 1 <= borderX && y - 1 >= 0) // check walls
+    if(x + 1 <= borderX && y - 1 >= 0) 
     {
         if(document.getElementById((x+1) + "-" + (y-1)).classList.contains('visited') === false && document.getElementById((x+1) + "-" + (y-1)).classList.contains('wall') === false)
         {
-            if(document.getElementById((x+1) + "-" + (y)).classList.contains('wall') === false)
-            {
-                queueList = addToQueue((x+1), (y-1), nodeArray, queueList,searchArray(x, y, nodeArray));
-                nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
-            }
-            else if (document.getElementById((x) + "-" + (y-1)).classList.contains('wall') === false)
+            if(document.getElementById((x+1) + "-" + (y)).classList.contains('wall') === false || document.getElementById((x) + "-" + (y-1)).classList.contains('wall') === false)
             {
                 queueList = addToQueue((x+1), (y-1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x+1) +'-'+ (y-1)));
@@ -140,17 +97,12 @@ function checkNeighbors(x, y, nodeArray , queueList)
         }
     }
 
-    if(x - 1 >= 0 && y - 1 >= 0) // check walls
+    if(x - 1 >= 0 && y - 1 >= 0)
     {
 
         if(document.getElementById((x-1) + "-" + (y-1)).classList.contains('visited') === false && document.getElementById((x-1) + "-" + (y-1)).classList.contains('wall') === false)
         {
-            if(document.getElementById((x) + "-" + (y-1)).classList.contains('wall') === false)
-            {
-                queueList = addToQueue((x-1), (y-1), nodeArray, queueList,searchArray(x, (y-1), nodeArray));
-                nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
-            }
-            else if (document.getElementById((x-1) + "-" + y).classList.contains('wall') === false)
+            if(document.getElementById((x) + "-" + (y-1)).classList.contains('wall') === false || document.getElementById((x-1) + "-" + y).classList.contains('wall') === false)
             {
                 queueList = addToQueue((x-1), (y-1), nodeArray, queueList,searchArray(x, y, nodeArray));
                 nodesToAnimate.push(document.getElementById((x-1) +'-'+ (y-1)));
@@ -161,12 +113,20 @@ function checkNeighbors(x, y, nodeArray , queueList)
     if(endNode[0].classList.contains('visited') === true)
     {
         let path = shortestPath(nodeArray, queueList[0].x, queueList[0].y);
-        console.log(path)
         animate(nodesToAnimate, path);
         return;
     }
-    console.log(queueList[0], "removed");
     queueList.shift();
+    return queueList;
+}
+
+function checkNode(x,y, nodeArray, queueList, prevX, prevY)
+{
+    if(document.getElementById(x + "-"+ y).classList.contains('visited')=== false && document.getElementById(x + "-"+ y).classList.contains('wall')=== false)
+    {
+        queueList = addToQueue(x, y, nodeArray, queueList, searchArray(prevX, prevY, nodeArray));
+        nodesToAnimate.push(document.getElementById(x +'-'+ y));
+    }
     return queueList;
 }
 
