@@ -26,6 +26,11 @@ export function breadthfirst()
             return;
         }
         queueList.shift();
+        if(queueList.length === 0)
+        {
+            animate(nodesToAnimate, null);
+            return;
+        }
         sortQueue(queueList)
     }
 }
