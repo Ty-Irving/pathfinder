@@ -1,7 +1,7 @@
 import { animate } from '../table/animation';
 import { findNodes, clearTable, searchArray, sortQueue} from '../table/tablesetup'
 let nodesToAnimate = [];
-export default function dijkstras()
+export function dijkstras()
 {
     clearTable();
 	let nodeArray = findNodes();

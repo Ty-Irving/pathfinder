@@ -3,7 +3,7 @@ import { findNodes, clearTable, searchArray, sortQueueAStar} from '../table/tabl
 
 let nodesToAnimate = [];
 
-export default function astar()
+export function astar()
 {
     clearTable();
     let queueList = [];

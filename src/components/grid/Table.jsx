@@ -15,7 +15,7 @@ export default class Table extends Component {
         let clientHeight = document.documentElement.clientHeight;
 
         let cellsWidth = Math.floor((clientWidth)/25);
-        let cellsHeight = Math.floor((clientHeight - 275)/ 25);
+        let cellsHeight = Math.floor((clientHeight - 100)/ 25);
         
         const table = document.getElementById('pathfinder-table');
         for (let row = 0; row < cellsHeight; row++)

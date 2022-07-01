@@ -2,7 +2,7 @@ import { findNodes, clearTable, searchArray, sortQueue} from '../table/tablesetu
 import { animate } from '../table/animation';
 
 let nodesToAnimate = [];
-export default function depthfirst()
+export function breadthfirst()
 {
     clearTable();
     let queueList = [];
