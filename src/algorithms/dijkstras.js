@@ -15,10 +15,6 @@ export default function dijkstras()
     sortQueue(nodeArray);
 	let checkFinish = false;
 
-	//
-		//No outer Nodes have been checked
-       
-    
     let idStart = startNode[0].id;
     let idEnd = endNode[0].id;
 
