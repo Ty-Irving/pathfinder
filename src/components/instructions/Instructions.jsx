@@ -10,6 +10,7 @@ export default function instructions() {
         <p>To execute an algorithm press the drop down on the right then execute the 
             algorithm of your choice
         </p>
+        <a href = "https://github.com/Ty-Irving/pathfinder">Github Link</a>
     </div>
   )
 }
