@@ -24,6 +24,7 @@ export default class Table extends Component {
             let new_row = document.createElement('tr');
             new_row.setAttribute("id", row_name);
             new_row.setAttribute('draggable', true);
+            new_row.setAttribute('class', 'table-row')
             table.appendChild(new_row);
             
             for (let col = 0; col < cellsWidth; col++) 
@@ -54,7 +55,7 @@ export default class Table extends Component {
     }
     render(){
         return (
-            <table id = "pathfinder-table"></table>
+            <table id = "pathfinder-table" className="table"></table>
           )
     }
   

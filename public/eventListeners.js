@@ -36,7 +36,11 @@ document.getElementById('pathfinder-table').addEventListener('click', event =>
   if(event.target.classList.contains('wall') != true && (event.target.classList.contains('start') != true || event.target.classList.contains('end') != true))
   {
     event.target.removeAttribute('style');
-    event.target.classList.add('wall');
+    if(event.target.classList.contains('table') !== true || event.target.contains('table-row') !== true)
+    {
+      event.target.classList.add('wall');
+    }
+    
   }
   else if(event.target.classList.contains('wall'))
   {
