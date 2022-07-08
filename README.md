@@ -1,8 +1,16 @@
-Introduction
-------------
-This project was mainly made in order to visualize 3 seperate algorithms
+### DEMO
+## [Link to site](https://exquisite-sherbet-f14a63.netlify.app/)
+![](https://github.com/Ty-Irving/pathfinder/blob/main/pathfinder.gif)
+
+## Algorithms
   - BFS
   - Dijkstras
   - A*
  
-You can add in walls in order to block the path and it will go around to avoid the walls and find the shortest path available
+## Build Guide
+```bash
+git clone https://github.com/Ty-Irving/pathfinder
+cd pathfinder
+npm install
+npm start
+```
