@@ -9,7 +9,7 @@
  
 ## Build Guide
 ```bash
-git clone https://github.com/Ty-Irving/pathfinder
+git clone https://ty-irving.com/pathfinder
 cd pathfinder
 npm install
 npm start
