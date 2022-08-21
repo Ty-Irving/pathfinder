@@ -1,5 +1,5 @@
 ### DEMO
-## [Link to site](https://exquisite-sherbet-f14a63.netlify.app/)
+## [Link to site](https://ty-irving.com/pathfinder)
 ![](https://github.com/Ty-Irving/pathfinder/blob/main/pathfinder.gif)
 
 ## Algorithms
@@ -9,7 +9,7 @@
  
 ## Build Guide
 ```bash
-git clone https://ty-irving.com/pathfinder
+git clone https://github.com/Ty-Irving/pathfinder.git
 cd pathfinder
 npm install
 npm start
