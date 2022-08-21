@@ -1,5 +1,5 @@
 ### DEMO
-## [Link to site](https://ty-irving.com/pathfinder)
+## [Link to site](https://ty-irving.com/pathfinding)
 ![](https://github.com/Ty-Irving/pathfinder/blob/main/pathfinder.gif)
 
 ## Algorithms
