@@ -1,5 +1,5 @@
 ### DEMO
-## [Link to site]([https://exquisite-sherbet-f14a63.netlify.app/])
+## [Link to site](https://exquisite-sherbet-f14a63.netlify.app/)
 ![](https://github.com/Ty-Irving/pathfinder/blob/main/pathfinder.gif)
 
 ## Algorithms
